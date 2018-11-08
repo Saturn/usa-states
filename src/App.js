@@ -6,14 +6,21 @@ import StartButton from './components/buttons/StartButton';
 import RestartButton from './components/buttons/RestartButton';
 import Counter from './components/Counter.js';
 
+import { shuffle } from 'lodash';
 
 class App extends Component {
 
-  state = {
-    started: false,
-    score: 0,
-    skipped: 0,
-    theStates: this.getUSAStates()
+  constructor() {
+    super();
+    let theStates = this.getUSAStates();
+    theStates = shuffle(theStates);
+
+    this.state = {
+      started: false,
+      score: 0,
+      skipped: 0,
+      theStates: theStates
+    }
   }
 
   getUSAStates () {
@@ -22,6 +29,10 @@ class App extends Component {
       theStatesNew[value.id] = {id: value.id, name: value.name, done: 0}
     });
     return theStatesNew;
+  }
+
+  incrementCounter() {
+    this.setState({score: this.state.score + 1});
   }
 
   render() {
