@@ -4,6 +4,7 @@ import theStates from './states.json';
 
 import StartButton from './components/buttons/StartButton';
 import RestartButton from './components/buttons/RestartButton';
+import Counter from './components/Counter.js';
 
 
 class App extends Component {
@@ -24,18 +25,23 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state);
-    console.log(this.state.started);
-
-    let button;
+    let startButton;
     if (this.state.started === false) {
-      button = <StartButton />;
+      startButton = <StartButton />;
+    }
+
+    let restartButton;
+    let counterDisplay;
+    if (this.state.started === true) {
+      restartButton = <RestartButton />;
+      counterDisplay = <Counter count={this.state.score}/>;
     }
 
     return (
       <div>
-        {button}
-        <RestartButton />
+        {startButton}
+        {restartButton}
+        {counterDisplay}
       </div>
     );
   }
