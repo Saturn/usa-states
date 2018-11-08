@@ -2,12 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import theStates from './states.json';
 
-
-const StartButton = (props) => (
-    <button id="start" onClick={props.click}>
-        Start!
-    </button>
-);
+import StartButton from './components/buttons/StartButton';
+import RestartButton from './components/buttons/RestartButton';
 
 
 class App extends Component {
@@ -27,22 +23,19 @@ class App extends Component {
     return theStatesNew;
   }
 
-  startClickHandler () {
-    console.log('Start was clicked!');
-  }
-
   render() {
     console.log(this.state);
     console.log(this.state.started);
 
     let button;
     if (this.state.started === false) {
-      button = <StartButton click={this.startClickHandler} />;
+      button = <StartButton />;
     }
 
     return (
       <div>
         {button}
+        <RestartButton />
       </div>
     );
   }
