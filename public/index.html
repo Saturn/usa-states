@@ -59,7 +59,8 @@
         },
         done: (datamap) => {
           datamap.svg.selectAll('.datamaps-subunit').on('click', (geography) => {
-              console.log(geography.properties.name);
+              //console.log(geography.properties.name);
+              getUSAStateClicked(geography.properties.name);
           });
         }
       });

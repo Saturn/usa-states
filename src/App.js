@@ -12,6 +12,8 @@ class App extends Component {
 
   constructor() {
     super();
+    window.getUSAStateClicked = this.getUSAStateClicked;
+
     let theStates = this.getUSAStates();
     theStates = shuffle(theStates);
 
@@ -33,6 +35,10 @@ class App extends Component {
 
   incrementCounter() {
     this.setState({score: this.state.score + 1});
+  }
+
+  getUSAStateClicked(the_state) {
+    console.log(the_state);
   }
 
   render() {
