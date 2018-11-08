@@ -37,3 +37,12 @@
   width: 750px;
   height: 500px;
 }
+
+.datamap {
+  border: solid black 1px;
+}
+
+#game {
+  margin: auto;
+  text-align: center;
+}
