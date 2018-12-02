@@ -5,6 +5,7 @@ import theStates from './states.json';
 import StartButton from './components/buttons/StartButton';
 import RestartButton from './components/buttons/RestartButton';
 import Counter from './components/Counter.js';
+import StateDisplay from './components/StateDisplay.js';
 
 import { shuffle } from 'lodash';
 
@@ -69,6 +70,7 @@ class App extends Component {
     let startButton;
     let restartButton;
     let counterDisplay;
+    let stateDisplay;
 
     if (this.state.started === false) {
       startButton = <StartButton click={this.startClickHandler}/>;
