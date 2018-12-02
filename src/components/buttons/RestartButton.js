@@ -3,18 +3,13 @@ import React, { Component } from 'react';
 
 class RestartButton extends Component {
 
-  restartClickHandler () {
-    console.log('Restart was clicked!');
-  }
-
   render () {
     return (
-      <button id="start" onClick={this.restartClickHandler}>
+      <button id="restart" onClick={this.props.click}>
           Restart!
       </button>
     )
   }
 };
-
 
 export default RestartButton;

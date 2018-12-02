@@ -16,16 +16,18 @@ class App extends Component {
 
     let theStates = this.getUSAStates();
     theStates = shuffle(theStates);
+    this.state = this.getInitialState();
+  }
 
-    this.state = {
+  getInitialState() {
+    return {
       started: false,
       score: 0,
-      skipped: 0,
-      theStates: theStates
+      skipped: new Set([theStates[0]])
     }
   }
 
-  getUSAStates () {
+  getUSAStates() {
     const theStatesNew = {};
     theStates.forEach(value => {
       theStatesNew[value.id] = {id: value.id, name: value.name, done: 0}
@@ -41,16 +43,24 @@ class App extends Component {
     console.log(the_state);
   }
 
+  startClickHandler = () => {
+    this.setState({started: true});
+  }
+
+  restartClickHandler = () => {
+    this.setState(this.getInitialState());
+  }
+
   render() {
     let startButton;
-    if (this.state.started === false) {
-      startButton = <StartButton />;
-    }
-
     let restartButton;
     let counterDisplay;
-    if (this.state.started === true) {
-      restartButton = <RestartButton />;
+
+    if (this.state.started === false) {
+      startButton = <StartButton click={this.startClickHandler}/>;
+    }
+    else {
+      restartButton = <RestartButton click={this.restartClickHandler}/>;
       counterDisplay = <Counter count={this.state.score}/>;
     }
 
