@@ -54,7 +54,13 @@ class App extends Component {
 
   checkTheState = (the_state) => {
     console.log(the_state);
-    return the_state === this.state.current;
+    if (this.state.started){
+      if (the_state === this.state.current){
+        this.setState({done: this.state.done.add(the_state)});
+        this.incrementCounter();
+        this.setNextState();
+      }
+    }
   }
 
   incrementCounter() {
@@ -67,6 +73,7 @@ class App extends Component {
 
   restartClickHandler = () => {
     this.setState(this.getInitialState());
+    this.setNextState();
   }
 
   render() {
@@ -81,6 +88,7 @@ class App extends Component {
     else {
       restartButton = <RestartButton click={this.restartClickHandler}/>;
       counterDisplay = <Counter count={this.state.score}/>;
+      stateDisplay = <StateDisplay theState={this.state.current}/>;
     }
 
     return (
@@ -88,6 +96,7 @@ class App extends Component {
         {startButton}
         {restartButton}
         {counterDisplay}
+        {stateDisplay}
       </div>
     );
   }
