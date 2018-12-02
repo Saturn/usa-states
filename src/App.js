@@ -12,35 +12,49 @@ class App extends Component {
 
   constructor() {
     super();
-    window.getUSAStateClicked = this.getUSAStateClicked;
-
-    let theStates = this.getUSAStates();
-    theStates = shuffle(theStates);
     this.state = this.getInitialState();
   }
 
+  componentDidMount() {
+    this.setNextState();
+  }
+
   getInitialState() {
+    this.theStates = this.getUSAStates();
     return {
       started: false,
       score: 0,
-      skipped: new Set([theStates[0]])
+      skipped: new Set(),
+      done: new Set(),
+      left: this.theStates,
+      current: null
     }
   }
 
   getUSAStates() {
-    const theStatesNew = {};
+    const theStatesNew = [];
     theStates.forEach(value => {
-      theStatesNew[value.id] = {id: value.id, name: value.name, done: 0}
+      theStatesNew.push(value.name);
     });
-    return theStatesNew;
+    return new Set(shuffle(theStatesNew));
+  }
+
+  setNextState() {
+    let found;
+    for (let state of this.state.left){
+      if (!found && !this.state.done.has(state)){
+        found = state;
+      }
+    }
+    this.setState({current: found});
+  }
+
+  checkTheState = (the_state) => {
+    return the_state === this.state.current;
   }
 
   incrementCounter() {
     this.setState({score: this.state.score + 1});
-  }
-
-  getUSAStateClicked(the_state) {
-    console.log(the_state);
   }
 
   startClickHandler = () => {
