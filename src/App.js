@@ -14,6 +14,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = this.getInitialState();
+    window.renderMap();
+    window.checkTheState = this.checkTheState;
   }
 
   componentDidMount() {
@@ -51,6 +53,7 @@ class App extends Component {
   }
 
   checkTheState = (the_state) => {
+    console.log(the_state);
     return the_state === this.state.current;
   }
 

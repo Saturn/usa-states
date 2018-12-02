@@ -44,25 +44,27 @@
     <script src="datamaps.usa.min.js"></script>
 
     <script>
-      var map = new Datamap({
-        element: document.getElementById('container'),
-        scope: 'usa',
-        responsive: false,
-        height: 500,
-        width: 750,
-        geographyConfig: {
-          popupOnHover: false,
-          highlightFillColor: '#f2ea34'
-        },
-        fills: {
-          defaultFill: '#5c0c78'
-        },
-        done: (datamap) => {
-          datamap.svg.selectAll('.datamaps-subunit').on('click', (geography) => {
-              // getUSAStateClicked(geography.properties.name);
-          });
-        }
-      });
+      var renderMap = function() {
+        var map = new Datamap({
+          element: document.getElementById('container'),
+          scope: 'usa',
+          responsive: false,
+          height: 500,
+          width: 750,
+          geographyConfig: {
+            popupOnHover: false,
+            highlightFillColor: '#f2ea34'
+          },
+          fills: {
+            defaultFill: '#5c0c78'
+          },
+          done: (datamap) => {
+            datamap.svg.selectAll('.datamaps-subunit').on('click', (geography) => {
+                checkTheState(geography.properties.name);
+            });
+          }
+        });
+      }
     </script>
 
   </body>
