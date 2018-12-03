@@ -5,7 +5,7 @@ class StateDisplay extends Component {
 
   render () {
     return (
-      <div class="state-name">
+      <div className="state-name">
       <h1>{ this.props.theState }</h1>
       </div>
     )

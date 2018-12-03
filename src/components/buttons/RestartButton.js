@@ -5,7 +5,7 @@ class RestartButton extends Component {
 
   render () {
     return (
-      <button id="restart" class="restart-button" onClick={this.props.click}>
+      <button id="restart" className="restart-button" onClick={this.props.click}>
           Restart!
       </button>
     )
