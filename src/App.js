@@ -22,7 +22,7 @@ const getUSStateList = () => {
         });
     });
     return theStatesNew;
-}
+};
 
 let theStateList = getUSStateList();
 
@@ -52,12 +52,14 @@ class App extends Component {
   }
 
   setCurrent() {
+    if (this.state.complete){
+      return
+    }
     let newCurrent = null;
-    let checkForSkipped = true;
     if (this.state.score + this.state.skipped === theStateList.length){
       for (let state of theStateList){
         state.skipped = false;
-        this.setState({skipped: 0})
+        this.setState({skipped: 0});
       }
     }
     for (let i = 0; i < theStateList.length; i++){
@@ -76,12 +78,12 @@ class App extends Component {
   markStateDone() {
     theStateList[this.state.current].done = true;
     let newScore = this.state.score += 1;
-    if (newScore === 50){
+    if (newScore === theStateList.length){
       this.setState({complete: true});
     }
     this.setState(
       {score: newScore},
-      () => {this.setCurrent()}
+      () => {this.setCurrent();}
     );
   }
 
@@ -150,14 +152,16 @@ class App extends Component {
     }
     else {
       restartButton = <RestartButton click={this.restartClickHandler}/>;
-      counterDisplay = <Counter count={this.state.score}/>;
-      stateDisplay = <StateDisplay theState={this.getCurrentStateName()}/>;
-      skipButton = <SkipButton theState={this.state.current}
+      if (!this.state.complete){
+        counterDisplay = <Counter count={this.state.score}/>;
+        stateDisplay = <StateDisplay theState={this.getCurrentStateName()}/>;
+        skipButton = <SkipButton theState={this.state.current}
                                click={this.skipClickHandler}/>
+        }
     }
 
     if (this.state.complete) {
-      complete = <h1> Yahooo! </h1>
+      complete = <h1>Well done!</h1>
     }
 
     return (

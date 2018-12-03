@@ -51,7 +51,7 @@ html {
 }
 
 .datamap path.active {
-  fill: #F2EA34 !important;
+  fill: black !important;
 }
 
 #game {
