@@ -43,7 +43,7 @@ html {
 }
 
 .datamap {
-  border: solid black 1px;
+  border: 2px solid #2F0035;
 }
 
 #game {
@@ -82,4 +82,23 @@ button {
 .restart-button:hover {
   background-color: #DF0000;
   color: white;
+}
+
+.state-name {
+  border: 3px solid #2F0035;
+  display: inline-block;
+  padding: 0px 20px;
+  color: #2F0035;
+}
+
+.counter {
+  display: inline-block;
+  font-size: 150%;
+  margin: 0.5em 0px;
+  color: #2F0035;
+  font-weight: bold;
+}
+
+.counter p {
+  margin: 0;
 }
