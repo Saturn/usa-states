@@ -5,7 +5,7 @@ class StartButton extends Component {
 
   render () {
     return (
-      <button id="start" onClick={this.props.click}>
+      <button id="start" class="start-button" onClick={this.props.click}>
           Start!
       </button>
     )

@@ -50,3 +50,36 @@ html {
   margin: auto;
   text-align: center;
 }
+
+button {
+  border-radius: 4px;
+  padding: 12px 32px;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.start-button {
+  background-color: #08A400;
+  color: white;
+  border: 1px solid #067200;
+}
+
+.start-button:hover {
+  background-color: #09C000;
+  color: white;
+}
+
+.restart-button {
+  background-color: #F50808;
+  color: white;
+  border: 1px solid #9B2006;
+}
+
+.restart-button:hover {
+  background-color: #DF0000;
+  color: white;
+}
