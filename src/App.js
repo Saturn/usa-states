@@ -77,7 +77,7 @@ class App extends Component {
 
   markStateDone() {
     theStateList[this.state.current].done = true;
-    let newScore = this.state.score += 1;
+    let newScore = this.state.score + 1;
     if (newScore === theStateList.length){
       this.setState({complete: true});
     }
@@ -96,8 +96,9 @@ class App extends Component {
 
   skipTheState() {
     theStateList[this.state.current].skipped = true;
+    let newSkipped = this.state.skipped + 1
     this.setState(
-      {skipped: this.state.skipped += 1},
+      {skipped: newSkipped},
       () => {this.setCurrent()}
     );
   }
