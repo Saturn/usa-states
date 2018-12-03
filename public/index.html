@@ -61,8 +61,10 @@
           },
           done: (datamap) => {
             datamap.svg.selectAll('.datamaps-subunit').on('click', (geography) => {
-                checkTheState({id: geography.id,
-                               name: geography.properties.name});
+                if (window.gameStarted) {
+                  checkTheState({id: geography.id,
+                                 name: geography.properties.name});
+                };
             });
           }
         });

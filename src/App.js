@@ -124,11 +124,13 @@ class App extends Component {
   }
 
   startClickHandler = () => {
+    window.gameStarted = true;
     this.setCurrent();
     this.setState({started: true});
   }
 
   restartClickHandler = () => {
+    window.gameStarted = false;
     this.redrawMap()
     theStateList = getUSStateList();
     this.setState(
