@@ -9,6 +9,16 @@ import StateDisplay from './components/StateDisplay.js';
 
 import { shuffle } from 'lodash';
 
+
+let getUSStateList = () => {
+    const theStatesNew = [];
+    listOfStates.forEach(value => {
+      theStatesNew.push(value.name);
+    });
+    return new Set(shuffle(theStatesNew));
+}
+
+
 class App extends Component {
 
   constructor() {
@@ -20,27 +30,17 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.setNextState();
   }
 
   getInitialState() {
-    let theStates = this.getUSAStates();
     return {
       started: false,
       score: 0,
       skipped: new Set(),
       done: new Set(),
-      left: theStates,
+      left: getUSStateList(),
       current: null
     }
-  }
-
-  getUSAStates() {
-    const theStatesNew = [];
-    listOfStates.forEach(value => {
-      theStatesNew.push(value.name);
-    });
-    return new Set(shuffle(theStatesNew));
   }
 
   setNextState() {
@@ -74,6 +74,7 @@ class App extends Component {
   }
 
   startClickHandler = () => {
+    this.setNextState();
     this.setState({started: true});
   }
 
