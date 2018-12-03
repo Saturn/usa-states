@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import theStates from './states.json';
+import listOfStates from './states.json';
 
 import StartButton from './components/buttons/StartButton';
 import RestartButton from './components/buttons/RestartButton';
@@ -37,7 +37,7 @@ class App extends Component {
 
   getUSAStates() {
     const theStatesNew = [];
-    theStates.forEach(value => {
+    listOfStates.forEach(value => {
       theStatesNew.push(value.name);
     });
     return new Set(shuffle(theStatesNew));
@@ -57,7 +57,7 @@ class App extends Component {
     console.log(the_state);
     if (this.state.started){
       if (the_state.name === this.state.current){
-        this.setState({done: this.state.done.add(the_state.name)});
+        this.setState({done: new Set(this.state.done.add(the_state.name))});
         this.incrementCounter();
         this.markStateColor(the_state.id);
         this.setNextState();
