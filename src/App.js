@@ -38,9 +38,6 @@ class App extends Component {
     window.checkTheState = this.checkTheState;
   }
 
-  componentDidMount() {
-  }
-
   getInitialState() {
     return {
       started: false,
@@ -56,12 +53,16 @@ class App extends Component {
       return
     }
     let newCurrent = null;
+
+    // if skipped all states (back to start)
     if (this.state.score + this.state.skipped === theStateList.length){
       for (let state of theStateList){
         state.skipped = false;
         this.setState({skipped: 0});
       }
     }
+
+    // get index of first state that hasn't been done or skipped
     for (let i = 0; i < theStateList.length; i++){
           if (!theStateList[i].done && !theStateList[i].skipped){
             newCurrent = i;
