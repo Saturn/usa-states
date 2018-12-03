@@ -53,17 +53,21 @@
           width: 750,
           geographyConfig: {
             popupOnHover: false,
-            highlightFillColor: '#f2ea34'
+            highlightOnHover: false,
+            highlightFillColor: '#F2EA34'
           },
           fills: {
-            defaultFill: '#5c0c78'
+            defaultFill: '#5c0c78',
+            done: '#0B7A00'
           },
           done: (datamap) => {
             datamap.svg.selectAll('.datamaps-subunit').on('click', (geography) => {
-                checkTheState(geography.properties.name);
+                checkTheState({id: geography.id,
+                               name: geography.properties.name});
             });
           }
         });
+        return map;
       }
     </script>
 

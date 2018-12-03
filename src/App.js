@@ -14,7 +14,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = this.getInitialState();
-    window.renderMap();
+    this.map = window.renderMap();
+    window.map = this.map;
     window.checkTheState = this.checkTheState;
   }
 
@@ -23,13 +24,13 @@ class App extends Component {
   }
 
   getInitialState() {
-    this.theStates = this.getUSAStates();
+    let theStates = this.getUSAStates();
     return {
       started: false,
       score: 0,
       skipped: new Set(),
       done: new Set(),
-      left: this.theStates,
+      left: theStates,
       current: null
     }
   }
@@ -55,12 +56,17 @@ class App extends Component {
   checkTheState = (the_state) => {
     console.log(the_state);
     if (this.state.started){
-      if (the_state === this.state.current){
-        this.setState({done: this.state.done.add(the_state)});
+      if (the_state.name === this.state.current){
+        this.setState({done: this.state.done.add(the_state.name)});
         this.incrementCounter();
+        this.markStateColor(the_state.id);
         this.setNextState();
       }
     }
+  }
+
+  markStateColor(state_id) {
+    this.map.updateChoropleth({[state_id]: {fillKey: 'done'}});
   }
 
   incrementCounter() {

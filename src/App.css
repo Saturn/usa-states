@@ -46,6 +46,10 @@ html {
   border: 2px solid #2F0035;
 }
 
+.datamap path:hover { /* on mouse over */
+  fill: #375682 !important;
+}
+
 #game {
   margin: auto;
   text-align: center;
