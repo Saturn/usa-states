@@ -45,12 +45,12 @@ class App extends Component {
       skipped: 0,
       current: 0,
       complete: false
-    }
+    };
   }
 
   setCurrent() {
     if (this.state.complete){
-      return
+      return;
     }
     let newCurrent = null;
 
