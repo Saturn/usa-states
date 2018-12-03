@@ -4,19 +4,27 @@ import listOfStates from './states.json';
 
 import StartButton from './components/buttons/StartButton';
 import RestartButton from './components/buttons/RestartButton';
+import SkipButton from './components/buttons/SkipButton';
 import Counter from './components/Counter.js';
 import StateDisplay from './components/StateDisplay.js';
 
 import { shuffle } from 'lodash';
 
 
-let getUSStateList = () => {
+const getUSStateList = () => {
     const theStatesNew = [];
-    listOfStates.forEach(value => {
-      theStatesNew.push(value.name);
+    shuffle(listOfStates).forEach(value => {
+        theStatesNew.push({
+            name: value.name,
+            id: value.id,
+            done: false,
+            skipped: false
+        });
     });
-    return new Set(shuffle(theStatesNew));
+    return theStatesNew;
 }
+
+let theStateList = getUSStateList();
 
 
 class App extends Component {
@@ -25,6 +33,7 @@ class App extends Component {
     super();
     this.state = this.getInitialState();
     this.map = window.renderMap();
+
     window.map = this.map;
     window.checkTheState = this.checkTheState;
   }
@@ -36,51 +45,96 @@ class App extends Component {
     return {
       started: false,
       score: 0,
-      skipped: new Set(),
-      done: new Set(),
-      left: getUSStateList(),
-      current: null
+      skipped: 0,
+      current: 0,
+      complete: false
     }
   }
 
-  setNextState() {
-    let found;
-    for (let state of this.state.left){
-      if (!found && !this.state.done.has(state)){
-        found = state;
+  setCurrent() {
+    let newCurrent = null;
+    let checkForSkipped = true;
+    if (this.state.score + this.state.skipped === theStateList.length){
+      for (let state of theStateList){
+        state.skipped = false;
+        this.setState({skipped: 0})
       }
     }
-    this.setState({current: found});
+    for (let i = 0; i < theStateList.length; i++){
+          if (!theStateList[i].done && !theStateList[i].skipped){
+            newCurrent = i;
+          }
+          if (newCurrent !== null){
+            break;
+          }
+    }
+    this.setState({
+      current: newCurrent
+    });
+  }
+
+  markStateDone() {
+    theStateList[this.state.current].done = true;
+    let newScore = this.state.score += 1;
+    if (newScore === 50){
+      this.setState({complete: true});
+    }
+    this.setState(
+      {score: newScore},
+      () => {this.setCurrent()}
+    );
   }
 
   checkTheState = (the_state) => {
-    console.log(the_state);
-    if (this.state.started){
-      if (the_state.name === this.state.current){
-        this.setState({done: new Set(this.state.done.add(the_state.name))});
-        this.incrementCounter();
-        this.markStateColor(the_state.id);
-        this.setNextState();
-      }
+    if (the_state.name === theStateList[this.state.current].name){
+      this.markStateColor(the_state.id);
+      this.markStateDone();
     }
   }
 
-  markStateColor(state_id) {
-    this.map.updateChoropleth({[state_id]: {fillKey: 'done'}});
+  skipTheState() {
+    theStateList[this.state.current].skipped = true;
+    this.setState(
+      {skipped: this.state.skipped += 1},
+      () => {this.setCurrent()}
+    );
   }
 
-  incrementCounter() {
-    this.setState({score: this.state.score + 1});
+  markStateColor(state_id) {
+    this.map.updateChoropleth(
+      {[state_id]: {fillKey: 'done'}
+    });
+  }
+
+  getCurrentStateName() {
+    return theStateList[this.state.current].name;
+  }
+
+  redrawMap() {
+    let states = getUSStateList();
+    let stateIds = {};
+    for (let i = 0; i < states.length; i++){
+      stateIds[states[i].id] = {fillkey: 'done'}
+    }
+    this.map.updateChoropleth(stateIds);
   }
 
   startClickHandler = () => {
-    this.setNextState();
+    this.setCurrent();
     this.setState({started: true});
   }
 
   restartClickHandler = () => {
-    this.setState(this.getInitialState());
-    this.setNextState();
+    this.redrawMap()
+    theStateList = getUSStateList();
+    this.setState(
+      this.getInitialState(),
+      () => {this.setCurrent()}
+    );
+  }
+
+  skipClickHandler = (the_state) => {
+    this.skipTheState()
   }
 
   render() {
@@ -88,6 +142,8 @@ class App extends Component {
     let restartButton;
     let counterDisplay;
     let stateDisplay;
+    let skipButton;
+    let complete;
 
     if (this.state.started === false) {
       startButton = <StartButton click={this.startClickHandler}/>;
@@ -95,7 +151,13 @@ class App extends Component {
     else {
       restartButton = <RestartButton click={this.restartClickHandler}/>;
       counterDisplay = <Counter count={this.state.score}/>;
-      stateDisplay = <StateDisplay theState={this.state.current}/>;
+      stateDisplay = <StateDisplay theState={this.getCurrentStateName()}/>;
+      skipButton = <SkipButton theState={this.state.current}
+                               click={this.skipClickHandler}/>
+    }
+
+    if (this.state.complete) {
+      complete = <h1> Yahooo! </h1>
     }
 
     return (
@@ -104,6 +166,8 @@ class App extends Component {
         {restartButton}
         {counterDisplay}
         {stateDisplay}
+        {skipButton}
+        {complete}
       </div>
     );
   }
