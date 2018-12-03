@@ -46,8 +46,12 @@ html {
   border: 2px solid #2F0035;
 }
 
-.datamap path:hover { /* on mouse over */
+.datamap path:hover {
   fill: #375682 !important;
+}
+
+.datamap path.active {
+  fill: #F2EA34 !important;
 }
 
 #game {
@@ -64,6 +68,10 @@ button {
   margin: 5px 5px;
   cursor: pointer;
   text-decoration: none;
+}
+
+button:focus {
+  outline: none;
 }
 
 .start-button {
@@ -85,6 +93,19 @@ button {
 
 .restart-button:hover {
   background-color: #DF0000;
+  color: white;
+}
+
+
+.skip-button {
+  background-color: #10587F;
+  color: white;
+  border: 1px solid #031C29;
+  margin: 15px 0px;
+}
+
+.skip-button:hover {
+  background-color: #0B415E;
   color: white;
 }
 
