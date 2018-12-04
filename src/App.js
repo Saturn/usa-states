@@ -28,9 +28,8 @@ let theStateList = getUSStateList();
 
 
 class App extends Component {
-
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = this.getInitialState();
     this.map = window.renderMap();
 
