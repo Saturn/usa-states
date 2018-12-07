@@ -56,8 +56,9 @@
             highlightOnHover: false
           },
           fills: {
-            defaultFill: '#000',
-            done: '#0B7A00'
+            defaultFill: 'black',
+            correct: 'green',
+            incorrect: 'red'
           },
           done: (datamap) => {
             datamap.svg.selectAll('.datamaps-subunit').on('click', (geography) => {

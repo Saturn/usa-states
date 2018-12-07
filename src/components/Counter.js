@@ -7,7 +7,7 @@ class Counter extends Component {
     return (
       <div>
       <div className="counter">
-      <p>{this.props.count}/50</p>
+      <p>Score: {this.props.count}</p>
       </div>
       </div>
     )
