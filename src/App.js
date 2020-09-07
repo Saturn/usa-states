@@ -20,7 +20,6 @@ const getListOfStates = () => {
 
 let theStateList = getListOfStates();
 
-const correctStates = new Set();
 
 
 class App extends Component {
@@ -28,6 +27,7 @@ class App extends Component {
     super(props);
     this.state = this.getInitialState();
     this.map = window.renderMap();
+    this.correctStates = new Set();
 
     window.map = this.map;
     window.checkTheState = this.checkTheState;
@@ -43,13 +43,13 @@ class App extends Component {
   }
 
   checkTheState = (the_state) => {
-    if (correctStates.has(the_state.id) || this.state.complete === true){
+    if (this.correctStates.has(the_state.id) || this.state.complete === true){
       return;
     }
     let score = 0;
     if (the_state.name === theStateList[this.state.current].name) {
       this.markStateCorrect(the_state.id);
-      correctStates.add(the_state.id);
+      this.correctStates.add(the_state.id);
       score = 1;
     } else {
       this.markStateIncorrect(the_state.id);
