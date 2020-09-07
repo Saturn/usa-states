@@ -47,7 +47,7 @@ html {
 }
 
 .datamap path:hover {
-  fill: #375682 !important;
+  opacity: 0.7;
 }
 
 .datamap path.active {
