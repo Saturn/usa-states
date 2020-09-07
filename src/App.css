@@ -54,6 +54,11 @@ html {
   fill: black !important;
 }
 
+.subtitle {
+  text-align: center;
+  margin-top: 10em;
+}
+
 #game {
   margin: auto;
   text-align: center;
