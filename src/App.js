@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, {
+  Component
+} from 'react';
 import './App.css';
 import listOfStates from './states.json';
 
@@ -7,7 +9,9 @@ import RestartButton from './components/buttons/RestartButton';
 import Counter from './components/Counter.js';
 import StateDisplay from './components/StateDisplay.js';
 
-import { shuffle } from 'lodash';
+import {
+  shuffle
+} from 'lodash';
 
 
 const getListOfStates = () => {
@@ -15,6 +19,8 @@ const getListOfStates = () => {
 }
 
 let theStateList = getListOfStates();
+
+const correctStates = new Set();
 
 
 class App extends Component {
@@ -37,23 +43,27 @@ class App extends Component {
   }
 
   checkTheState = (the_state) => {
-    if (this.state.complete === false){
-      let score = 0;
-      if (the_state.name === theStateList[this.state.current].name){
-        this.markStateCorrect(the_state.id);
-        score = 1;
-      }
-      else {
-        this.markStateIncorrect(the_state.id);
-      }
-      let newCurrent = this.state.current + 1;
-      if (newCurrent === theStateList.length){
-        this.setState({complete: true});
-      }
-      else {
-        this.setState({score: this.state.score + score,
-                       current: this.state.current + 1});
-      }
+    if (correctStates.has(the_state.id) || this.state.complete === true){
+      return;
+    }
+    let score = 0;
+    if (the_state.name === theStateList[this.state.current].name) {
+      this.markStateCorrect(the_state.id);
+      correctStates.add(the_state.id);
+      score = 1;
+    } else {
+      this.markStateIncorrect(the_state.id);
+    }
+    let newCurrent = this.state.current + 1;
+    if (newCurrent === theStateList.length) {
+      this.setState({
+        complete: true
+      });
+    } else {
+      this.setState({
+        score: this.state.score + score,
+        current: this.state.current + 1
+      });
     }
   }
 
@@ -66,8 +76,10 @@ class App extends Component {
   }
 
   markStateColor(state_id, color_key) {
-    this.map.updateChoropleth(
-      {[state_id]: {fillKey: color_key}
+    this.map.updateChoropleth({
+      [state_id]: {
+        fillKey: color_key
+      }
     });
   }
 
@@ -78,15 +90,19 @@ class App extends Component {
   redrawMap() {
     let states = getListOfStates();
     let stateIds = {};
-    for (let i = 0; i < states.length; i++){
-      stateIds[states[i].id] = {fillkey: 'defaultFill'}
+    for (let i = 0; i < states.length; i++) {
+      stateIds[states[i].id] = {
+        fillkey: 'defaultFill'
+      }
     }
     this.map.updateChoropleth(stateIds);
   }
 
   startClickHandler = () => {
     window.gameStarted = true;
-    this.setState({started: true});
+    this.setState({
+      started: true
+    });
   }
 
   restartClickHandler = () => {
@@ -108,33 +124,52 @@ class App extends Component {
     let complete;
 
     if (this.state.started === false) {
-      startButton = <StartButton click={this.startClickHandler}/>;
-    }
-    else {
-      restartButton = <RestartButton click={this.restartClickHandler}/>;
-      if (!this.state.complete){
-        counterDisplay = <Counter count={this.state.score}/>;
-        stateDisplay = <StateDisplay theState={this.getCurrentStateName()}/>;
+      startButton = < StartButton click = {
+        this.startClickHandler
+      }
+      />;
+    } else {
+      restartButton = < RestartButton click = {
+        this.restartClickHandler
+      }
+      />;
+      if (!this.state.complete) {
+        counterDisplay = < Counter count = {
+          this.state.score
         }
+        />;
+        stateDisplay = < StateDisplay theState = {
+          this.getCurrentStateName()
+        }
+        />;
+      }
     }
 
     if (this.state.complete) {
-      complete = (
-        <>
-        <h1>Game Over</h1>
-        <h2>You scored {this.state.score}</h2>
-        </>
-        )
+      complete = ( <
+        >
+        <
+        h1 > Game Over < /h1> <
+        h2 > You scored {
+          this.state.score
+        } < /h2> <
+        />
+      )
     }
 
-    return (
-      <div>
-        {startButton}
-        {restartButton}
-        {counterDisplay}
-        {stateDisplay}
-        {complete}
-      </div>
+    return ( <
+      div > {
+        startButton
+      } {
+        restartButton
+      } {
+        counterDisplay
+      } {
+        stateDisplay
+      } {
+        complete
+      } <
+      /div>
     );
   }
 }
