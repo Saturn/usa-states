@@ -44,7 +44,7 @@ html {
 }
 
 .datamap {
-  border: 2px solid #2F0035;
+  border: 2px solid #2f0035;
 }
 
 .datamap path:hover {
@@ -83,52 +83,51 @@ button:focus {
 }
 
 .start-button {
-  background-color: #08A400;
+  background-color: #08a400;
   color: white;
   border: 1px solid #067200;
 }
 
 .start-button:hover {
-  background-color: #09C000;
+  background-color: #09c000;
   color: white;
 }
 
 .restart-button {
-  background-color: #F50808;
+  background-color: #f50808;
   color: white;
-  border: 1px solid #9B2006;
+  border: 1px solid #9b2006;
 }
 
 .restart-button:hover {
-  background-color: #DF0000;
+  background-color: #df0000;
   color: white;
 }
 
-
 .skip-button {
-  background-color: #10587F;
+  background-color: #10587f;
   color: white;
-  border: 1px solid #031C29;
+  border: 1px solid #031c29;
   margin: 15px 0px;
 }
 
 .skip-button:hover {
-  background-color: #0B415E;
+  background-color: #0b415e;
   color: white;
 }
 
 .state-name {
-  border: 3px solid #2F0035;
+  border: 3px solid #2f0035;
   display: inline-block;
   padding: 0px 20px;
-  color: #2F0035;
+  color: #2f0035;
 }
 
 .counter {
   display: inline-block;
   font-size: 150%;
   margin: 0.5em 0px;
-  color: #2F0035;
+  color: #2f0035;
   font-weight: bold;
 }
 

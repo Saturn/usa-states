@@ -1,15 +1,13 @@
-import React, { Component } from 'react';
-
+import React, { Component } from "react";
 
 class StartButton extends Component {
-
-  render () {
+  render() {
     return (
       <button id="start" className="start-button" onClick={this.props.click}>
-          Start!
+        Start!
       </button>
-    )
+    );
   }
-};
+}
 
 export default StartButton;

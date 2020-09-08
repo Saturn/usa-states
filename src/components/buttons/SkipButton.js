@@ -1,18 +1,21 @@
-import React, { Component } from 'react';
-
+import React, { Component } from "react";
 
 class SkipButton extends Component {
-
-  render () {
+  render() {
     return (
       <div>
-      <button id="skip" className="skip-button" onClick={() => {
-        this.props.click(this.props.theState)}}>
+        <button
+          id="skip"
+          className="skip-button"
+          onClick={() => {
+            this.props.click(this.props.theState);
+          }}
+        >
           Skip
-      </button>
+        </button>
       </div>
-    )
+    );
   }
-};
+}
 
 export default SkipButton;

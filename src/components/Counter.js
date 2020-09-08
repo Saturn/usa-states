@@ -1,18 +1,15 @@
-import React, { Component } from 'react';
-
+import React, { Component } from "react";
 
 class Counter extends Component {
-
-  render () {
+  render() {
     return (
       <div>
-      <div className="counter">
-      <p>Score: {this.props.count}</p>
+        <div className="counter">
+          <p>Score: {this.props.count}</p>
+        </div>
       </div>
-      </div>
-    )
+    );
   }
-};
-
+}
 
 export default Counter;
