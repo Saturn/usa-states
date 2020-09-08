@@ -45,6 +45,7 @@ html {
 
 .datamap {
   border: 2px solid #2f0035;
+  user-select: none;
 }
 
 .datamap path:hover {
@@ -74,7 +75,6 @@ button {
   font-size: 16px;
   margin: 5px 5px;
   cursor: pointer;
-  user-select: none;
   text-decoration: none;
 }
 
