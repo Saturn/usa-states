@@ -19,12 +19,12 @@ jobs:
         node-version: [10.x, 12.x, 14.x]
 
     steps:
+    - run: npm run build --if-present
     - uses: actions/checkout@v2
     - name: Publish to GitHub Pages Action
       uses: qoomon/actions-publish-to-github-pages@v1
       with:
-        GITHUB_PAGES_SOURCE_DIR: dist # default value:  dist
+        GITHUB_PAGES_SOURCE_DIR: build # default value:  dist
         GITHUB_PAGES_BRANCH: gh-pages # default value:  gh-pages
         GITHUB_PAGES_REPLACE: false   # default value:  false
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - run: npm run build --if-present
